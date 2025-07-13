@@ -1,0 +1,16 @@
+- hosts: all
+  become: yes
+
+  tasks:
+    - name: Pull redmine docker image
+      community.docker.docker_image:
+        name: redmine
+        tag: latest
+        source: pull
+  
+    - name: Run redmine docker container
+      community.docker.docker_container:
+        name: redmine
+        image: "redmine:latest"
+        published_ports:
+          - "80:3000"

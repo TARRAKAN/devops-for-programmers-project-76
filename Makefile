@@ -1,5 +1,17 @@
-install_ansible_roles:
+INVENTORY_FILE = local_inventory.ini
+GENERAL_ANSOBLE_PLAYBOOK_FLAGS = -i $(INVENTORY_FILE) --ask-become-pass
+
+install_roles:
 	ansible-galaxy install -r requirements.yml
 
-prepare: install_ansible_roles
-	ansible-playbook preparation_playbook.yml -i local_inventory.ini
+prepare: install_roles
+	ansible-playbook preparation_playbook.yml $(GENERAL_ANSOBLE_PLAYBOOK_FLAGS)
+
+deploy: prepare
+	ansible-playbook deployment_playbook.yml $(GENERAL_ANSOBLE_PLAYBOOK_FLAGS)
+
+stop:
+	sudo docker container stop redmine
+
+clean:
+	rm -f .env
