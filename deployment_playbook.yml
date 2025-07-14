@@ -1,7 +1,20 @@
 - hosts: all
   become: yes
 
+  vars:
+    redmine_database_name: "postgres"
+    remine_database_username: "postgres"
+    redmine_database_password: "password"
+    redmine_database_host: "127.0.0.1"
+    redmine_database_port: "5432"
+
   tasks:
+    - name: Get .env file
+      template:
+        src: .env.template.j2
+        dest: .env
+        mode: '0644'  
+
     - name: Pull redmine docker image
       community.docker.docker_image:
         name: redmine
@@ -12,5 +25,6 @@
       community.docker.docker_container:
         name: redmine
         image: "redmine:latest"
+        env_file: .env
         published_ports:
           - "80:3000"
