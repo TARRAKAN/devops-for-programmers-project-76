@@ -1,0 +1,5 @@
+redmine_database_name: "postgres"
+remine_database_username: "postgres"
+redmine_database_password: "password"
+redmine_database_host: "127.0.0.1"
+redmine_database_port: "5432"
