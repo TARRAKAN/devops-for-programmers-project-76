@@ -16,7 +16,7 @@
   
     - name: Running redmine docker container
       community.docker.docker_container:
-        name: redmine
+        name: "{{ redmine_container_name }}"
         image: "redmine:latest"
         env_file: .env
         published_ports:
