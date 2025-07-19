@@ -1,9 +1,18 @@
 - hosts: all
   become: yes
   vars:
+    # geerlingguy.pip
     pip_install_packages:
       - name: docker
+
+    # datadog.datadog
+    datadog_checks:
+      http_check:
+        init_config:
+          instances:
+            - url: http://158.160.175.96
 
   roles:
     - geerlingguy.pip
     - geerlingguy.docker
+    - datadog.datadog
